@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 30px;
+      font-family: sans-serif;
+    }
+    #fontSizeWrapper {
+      font-size: 16px;
+    }
+    #fontSize {
+      width: 100px;
+      font-size: 1.5em;
+    }
+
+    .tree-container {width: 350px; border-radius:4px; border: 1px solid #777;}
+    .tree-container ul{
+      
+      padding:10px;
+      list-style-type: none;
+    }
+
+    /* ————————————————————–
+  Tree core styles
+*/
+    .tree { margin: 1em 0 1em 2em; background: #333;}
+    .tree li label {background: #333; color: #eee;}
+    .tree input {
+      position: absolute;
+      display: none;
+      /* clip: rect(0, 0, 0, 0); */
+    }
+    .tree input~ul { display: none;    }
+    .tree input:checked~ul { display: block; }
+  /* ————————————————————–
+    Tree rows
+  */
+
+    /* .tree ul{   background: #eee !important} */
+    .tree li {
+      line-height: 1.2;
+      position: relative;
+   
+      /* padding: 0 0 0.5em 0.5em; */
+    }
+    
+    .tree ul li { padding: 0.5em 0 0 0.2em; }
+    .tree>li:last-child { padding-bottom: 0; }
+    /* ————————————————————–
+      Tree labels
+    */
+    .tree_label {
+      position: relative;
+      display: inline-block;
+      background: #fff;
+    }
+    label.tree_label { cursor: pointer;}
+    label.tree_label:hover { color: #666;}
+    
+    /* ————————————————————–
+    Tree expanded icon
+    */
+    label.tree_label:before {
+            background: #333;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            float: left;
+            margin: 0 1em 0em -1.8em;
+            width: 1em;
+            height: 1em;
+            border-radius: 1em;
+            content: '+';
+            text-align: center;
+            line-height: 1em;
+        }
+    :checked~label.tree_label:before { content: '–';}
+        /* ————————————————————–
+  Tree branches
+*/
+    .tree li:before {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -1.1em;
+            display: block;
+            width: 0;
+            border-left: 1px solid #666;
+            content: "";
+        }
+    .tree_label:after {
+        position: absolute;
+        top: 0;
+        left: -1.3em;
+        display: block;
+        height: 0.5em;
+        width: 1em;
+        border-bottom: 1px solid #666;
+        border-left: 1px solid #666;
+        border-radius: 0 0 0 .3em;
+        content: '';
+        }
+      
+
+  </style>
+</head>
+
+<body>
+  <div id="fontSizeWrapper">
+    <label for="fontSize">Font size</label>
+    <input type="range" value="1" id="fontSize" step="0.5" min="0.5" max="5" />
+  </div>
+
+  <div class="tree-container">
+    <h3 style="border-bottom: 1px solid #333; padding-bottom: 14px;">Menu</h3>
+    <ul class="tree">
+      <!-- Tree1 -->
+      <li>
+        <input type="checkbox" checked="checked" id="c1" />
+        <label class="tree_label" for="c1">프로세스</label>
+        <ul>
+          <!-- 1.1 -->
+          <li>
+            <input type="checkbox" checked="checked" id="c2" />
+            <label for="c2" class="tree_label">진료</label>
+            <ul>
+              <li><span class="tree_label">Level 2</span></li>
+              <li><span class="tree_label">Level 2</span></li>
+            </ul>
+          </li>
+          <!-- 1.2 -->
+          <li>
+            <input type="checkbox" id="c3" />
+            <label for="c3" class="tree_label">간호</label>
+            <ul>
+              <li><span class="tree_label">외래간호</span></li>
+              <li>
+                <input type="checkbox" id="c4" />
+                <label for="c4" class="tree_label"><span class="tree_custom">주사실</span></label>
+                <ul>
+                  <li><span class="tree_label">Level 3</span></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- 1.3 -->
+          <li>
+            <input type="checkbox" id="c5" />
+            <label for="c5" class="tree_label">원무</label>
+            <ul>
+              <li><span class="tree_label">Level 2</span></li>
+              <li><span class="tree_label">Level 2</span></li>
+            </ul>
+          </li>
+
+        </ul>
+      </li>
+    <!-- Tree2 -->
+      <li>
+        <input type="checkbox" id="c6" />
+        <label class="tree_label" for="c6">Level 0</label>
+        <ul>
+          <!-- 2.1 -->
+          <li>
+            <input type="checkbox" id="c7" />
+            <label for="c7" class="tree_label">Level 1</label>
+            <ul>
+              <li><span class="tree_label">Level 2</span></li>
+            </ul>
+          </li>
+         <!-- 2.2 -->
+          <li>
+            <input type="checkbox" id="c8" />
+            <label for="c8" class="tree_label">Level 1</label>
+            <ul>
+              <li><span class="tree_label">Level 2</span></li>
+              <li>
+                <input type="checkbox" id="c9" />
+                <label for="c9" class="tree_label">Level 2</label>
+                <ul>
+                  <li><span class="tree_label">Level 3</span></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script>
+    function isNumber(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    function setFontSize(el) {
+      var fontSize = el.val();
+
+      if (isNumber(fontSize) && fontSize >= 0.5) {
+        $('body').css({
+          fontSize: fontSize + 'em'
+        });
+      } else if (fontSize) {
+        el.val('1');
+        $('body').css({
+          fontSize: '1em'
+        });
+      }
+    }
+
+    $(function () {
+
+      $('#fontSize')
+        .bind('change', function () {
+          setFontSize($(this));
+        })
+        .bind('keyup', function (e) {
+          if (e.keyCode == 27) {
+            $(this).val('1');
+            $('body').css({
+              fontSize: '1em'
+            });
+          } else {
+            setFontSize($(this));
+          }
+        });
+
+      $(window)
+        .bind('keyup', function (e) {
+          if (e.keyCode == 27) {
+            $('#fontSize').val('1');
+            $('body').css({
+              fontSize: '1em'
+            });
+          }
+        });
+
+    });
+  </script>
+</body>
+
+</html>

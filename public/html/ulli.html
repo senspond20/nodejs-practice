@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         .menu-container {background-color: #fff; color: #333333; width: 280px;}
+        .menu-container ul{
+            padding: 0;
+            list-style-type: none;
+            -webkit-padding-start: 0;
+            width: 100%; border-right: 1px solid #eee;
+            /*cursor: pointer;*/
+        }
+        ul.mylist{cursor: pointer;}
+        ul.mylist .top-item {
+            /* padding: 5px 0px 5px 5px; */
+            margin-bottom: 5px;
+            border-bottom: 1px solid #efefef;
+            font-size: 12px;
+        }
+
+        ul.mylist .se-item {
+            padding: 5px 0px 0px 15px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #585252;
+            font-size: 12px;
+            background-color: #cbbfbf;
+            color: #333;
+        }
+     
+
+        ul.mylist li:last-child,
+        ol.mylist li:last-child {
+            border-bottom: 0px;
+        }
+        ul.mylist li:before,
+        ol.mylist li:before {
+            content: ">";
+            display: inline-block;
+            vertical-align: middle;
+            padding: 0px 5px 6px 0px;
+        }
+        .top-item ul {
+            display: none;
+        }
+         .mylist label{cursor: pointer}
+         .mylist input[type='checkbox']:checked~ul{
+             display: block;
+         }
+    </style>
+</head>
+<body>
+    <nav class="menu-container">
+        
+        <ul class="mylist">
+
+            <li class="top-item">
+                <label for="menu1">프로세스 목록</label>
+                <input type="checkbox" id ="menu1"/>
+                <ul>
+                    <li class="se-item"><label>진료</label></li>
+                    <li class="se-item">간호</li>
+                </ul>
+            </li>
+
+            <li class="top-item">
+                <label for="menu2">menu2</label>
+                <input type="checkbox" id ="menu2"/>
+                <ul>
+                    <li class="se-item">공지1</li>
+                    <li class="se-item">공지2</li>
+                </ul>
+            </li>
+            <li class="top-item">정밀의료</li>
+            <li class="top-item">목록 아이템 4</li>
+            <li class="top-item">목록 아이템 5</li>
+        </ul>
+    </nav>
+    <script>
+        (function(){
+            // init();
+            // clickFunc();
+
+            function init(){
+                const elem = document.querySelectorAll('.top-item');
+                elem.forEach(element => {
+                    const node = element.children.item(2);
+                    if(node) node.style.display = 'none';
+                });
+            }
+            function clickFunc(){
+
+                const clickEventHandler = (e)=>{
+                    const ulNode = e.target.children.item(0);
+                  if(ulNode) ulNode.style.display = 'block'
+                }
+
+                const container = document.querySelector('.menu-container');
+                container.addEventListener('click',clickEventHandler);
+                return ()=> container.removeEventListener('click', clickEventHandler);
+            }
+        })();
+    </script>
+</body>
+</html>
