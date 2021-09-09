@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style/global.css">
+</head>
+<body>
+    <%=test%>
+    <div class="tree-container">
+    <ul class="tree">
+        <% list.forEach(function(item){ %>
+            <li><a href=<%= item %>><%=item%></a></a></li>
+        <% }) %>
+    </ul>
+    </div>
+
+</body>
+</html>

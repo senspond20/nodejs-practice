@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-
+const {publicPath} = require('./config')
 const {homeRoutes, userRoutes} = require('./routes')
 const {timelogMd} = require('./middleware')
 // 화면 engine을 ejs로 설정 
 
 app.set('view engine', 'ejs'); 
 app.engine('html', require('ejs').renderFile);
-// app.use(express.static('public'));
+app.use(publicPath, express.static('public'));
 
 app.use(timelogMd);
 
