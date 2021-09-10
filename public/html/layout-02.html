@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        /*https://studiomeal.com/archives/533*/
+        .container {
+            display: grid;
+            /*grid-template-columns: 200px 200px 500px;*/
+            /* grid-template-columns: 1fr 1fr 1fr;*/
+            /* grid-template-columns: repeat(3, 1fr) */
+            /* grid-template-columns: 200px 1fr */
+             grid-template-columns: 200px auto 200px;
+            grid-template-rows: repeat(3, minmax(100px, auto));
+
+            /*row-gap: 1em;*/
+            /*grid-template-rows: 200px 200px 500px;*/
+             /*grid-template-rows: 1fr 1fr 1fr;*/
+             /*grid-template-rows: repeat(3, 1fr)*/
+            /* grid-template-rows: 200px 1fr */
+            /* grid-template-rows: 100px 200px auto;*/
+        }
+        .item{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .item:nth-child(1){background: red;  grid-column: 2;}
+        .item:nth-child(2){background: blue}
+        .item:nth-child(3){background: violet}
+        .item:nth-child(4){background: peachpuff}
+        .item:nth-child(5){background: peru}
+        .item:nth-child(6){background: green}
+        .item:nth-child(7){background: gray}
+        .item:nth-child(8){background: aqua}
+        .item:nth-child(9){background: #666666}
+
+        .item:nth-child(1) {
+            grid-column: 1/ 4;
+            grid-row: 1 / 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+        <div class="item">G</div>
+        <div class="item">H</div>
+        <div class="item">I</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Layout-01</title>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+            Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            /** overflow : auto; -> 모달창 화면꽉차게 하려고 줬었지만 버그가 있다 */
+            /* height: 100%; */
+            /* overflow: auto; */
+            overflow: visible;
+            /*color : deepskyblue;*/
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        button {
+            cursor:pointer;
+        }
+        button:active{
+            background: rgba(0,0,0,0.15);
+        }
+        .comflex {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .flex-line{
+            flex-direction: column;
+            background-color: #fff;
+            border-right: 1px solid #eee;
+            border-left: 1px solid #eee;
+            border-radius: 5px;
+        }
+        .grid-wrapper{
+            /*max-width: 1400px;*/
+            display: grid;
+            grid-auto-rows: minmax(100px, auto);
+            gap: 2.5em;
+            grid-template-columns: 1fr 5fr 1fr;
+        }
+        .main-container{
+            background-color: rgba(0,0,0,0.009);
+            /*min-height: 960px;*/
+        }
+        .nav-bar{
+            padding: 1em;
+            position: relative;
+            width: 100%;
+            grid-column: 1 / 4;
+            border-top: 1px solid #eee;
+            background: #333;
+        }
+
+        h1,h2,h3,h4,h5,h6{  display: block; font-weight: bold;}
+        h1 {  font-size: 2em; margin: 0.67em 0;  }
+        h2 {  font-size: 1.5em; margin: 0.83em 0; }
+        h3 {  font-size: 1.17em; margin: 1em 0;}
+        h4 {  font-size: 1em; margin: 1.33em 0;}
+        h5 {  font-size: .83em; margin: 1.67em 0;}
+        h6 {  font-size: .67em; margin: 2.33em 0;}
+        p {margin: 0.7em;}
+
+    </style>
+</head>
+<body>
+<div class="comflexf ">
+
+    <div class="grid-wrapper flex-line">
+        <div class="main-container">
+            <div class="comflex ">
+                <h1>sfsdfsd</h1>
+            </div>
+            <h1>h1 sdfdsfds</h1>
+            <h2>h2 sdsfsdf</h2>
+            <h3>h3 sdfeefe</h3>
+            <h4>h4 fsfsfse</h4>
+            <h5>h5 fsdfdfd</h5>
+            <h6>h6 fsdfdfd</h6>
+        </div>
+        <div class="nav-bar">
+            Navigation
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
