@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="<c:url value='/resource/js/aljjabaegi/jquery.ztree.core.min.js'/>"></script>
+    <link rel="stylesheet" type="text/css" href="${ctx }/resource/js/aljjabaegi/css/zTreeStyle.css"/>
+//https://aljjabaegi.tistory.com/372
+</head>
+<body>
+    <ul id="treeDemo" class="ztree"></ul>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        const zNodes =[
+            { id : "1", name:"최상위1" },
+            { id : "11", pId : "1", name:"최상위1의 하위1"},
+            { id : "12", pId : "1", name:"최상위1의 하위2"},
+            { id : "2", name:"최상위2" },
+            { id : "21", pId : "2", name:"최상위2의 하위1"},
+            { id : "22", pId : "2", name:"최상위2의 하위2"},
+        ];
+        const setting = {
+            data: {
+                simpleData: {
+                    enable: true,
+                }
+            }
+        }
+         
+        $(document).ready(function(){
+            $.fn.zTree.init($("#treeDemo"), setting, folderArray);
+        });
+    </script>
+      
+</body>
+</html>
