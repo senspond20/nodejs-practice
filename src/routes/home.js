@@ -19,7 +19,8 @@ const pushItem = (base, href, text)=>{
     });
 }
 
-routerList.forEach(baseurl =>{
+routerList.forEach(item =>{
+    const baseurl = item.directory;
     const filepath = path.join(publicViewsPath, baseurl);
     const files = fs.readdirSync(filepath);
     const htmlFiles = files.filter(file => path.extname(file).toLowerCase() ==='.html') 
@@ -33,7 +34,7 @@ routerList.forEach(baseurl =>{
         router.get(`${pathName}`, (req, res,next)=>{
             res.render(`${filepath}/${filename}`)
         })
-        pushItem(baseurl, pathName, filename );
+        pushItem(item, pathName, filename );
     });
 
     // markdown
@@ -57,13 +58,14 @@ routerList.forEach(baseurl =>{
             res.end();
         })
 
-        pushItem(baseurl, pathName, filename);
+        pushItem(item, pathName, filename);
     });
+    pushItem(item, pathName, filename);
 })
 
 
 
-
+console.log(list)
 
 
 // console.log(files)

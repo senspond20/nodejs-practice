@@ -3,8 +3,7 @@ const fs = require('fs')
 const url = require('url');
 const {publicViewsPath} = require('../config');
 
-let routerList = [];
-
+let directoryList = [];
 
 function getFilesfromPath(filePath){
     const files = fs.readdirSync(filePath);
@@ -15,7 +14,7 @@ function getFilesfromPath(filePath){
         if(fs.lstatSync(nPath).isDirectory()){
             const t = nPath.replace(publicViewsPath, "");
             const urlPath = url.pathToFileURL(t).href.replace(/file:\/+.*:/g,"");
-            routerList.push(urlPath);
+            directoryList.push(urlPath);
             // console.log("=============")
             // console.log(item)
             // console.log(nPath)
@@ -23,10 +22,31 @@ function getFilesfromPath(filePath){
         }
     })   
 }
+let routerList = [];
 
 function getFileList(){
-    routerList.push("");
+    directoryList.push("");
     getFilesfromPath(publicViewsPath);
+    
+    let rid = 0;
+    let pid = 0;
+    let temp ;
+
+    directoryList.forEach(i=>{
+        if(i.includes(temp) && rid !== 0){
+            pid = rid-1;
+        }else{
+            pid = 0;
+        }
+        routerList.push({
+            rid : rid,
+            pid : pid,
+            directory : i
+        })
+        temp = i;
+        rid++;
+    })
+    console.log(routerList)
 }
 
 getFileList();
