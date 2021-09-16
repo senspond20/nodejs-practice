@@ -79,7 +79,7 @@
                 itemList.forEach(e =>{
 
                     if(temp === '' && first === 0){
-                        navhtml += `<h3>/</h3><ul class ="nav-item">`;
+                        navhtml += `<h3 class="nav-item-title">/</h3><ul class ="nav-item">`;
                             first = 1;
                     }
                     if(temp != e.base){
@@ -91,15 +91,20 @@
                         temp = e.base;
                         console.log("다름")
                         console.log(e.base)
-                        navhtml += `<h3>${e.base}</h3><ul class ="nav-item">`;
+                        navhtml += `<h3 class="nav-item-title">${e.base}</h3><ul class ="nav-item">`;
                     }
                     navhtml += `<li><a href="${e.href}">${e.text}</a></li>`
                 })
                 navhtml += "</nav>"
                 console.log(navhtml)
 
-                document.querySelector('.nav-wrap').innerHTML = navhtml;
-               
+                $('.nav-wrap').html(navhtml);
+                $('.side-bar-item').on('click', function(){
+
+            
+                console.log($('.nav-item-title'));
+
+                });
             };
 
             // function createTag(tag){
@@ -107,9 +112,7 @@
             // }
             // function appendTag
             
-            $('.side-bar-item').on('click', function(){
-
-            });
+       
 
         })();
 

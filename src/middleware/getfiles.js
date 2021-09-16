@@ -5,6 +5,7 @@ const {publicViewsPath} = require('../config');
 
 let routerList = [];
 
+
 function getFilesfromPath(filePath){
     const files = fs.readdirSync(filePath);
     console.log(files)
