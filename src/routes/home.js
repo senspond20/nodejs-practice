@@ -1,59 +1,69 @@
 const router = require('express').Router();
-const url = require('url');
-
-// require('')
+const md = require('../middleware/mdparser');
 const path = require('path');
 const fs = require('fs')
-
-const {publicHtmlPath} = require('../config');
-
-function getFiles(filePath){
-    const files = fs.readdirSync(filePath);
-    console.log(files)
-    files.forEach((item)=>{
-        const nPath = path.join(filePath,item);
-        if(fs.lstatSync(nPath).isDirectory()){
-            const t = nPath.replace(publicHtmlPath, "");
-            const urlPath = url.pathToFileURL(t).href.replace(/file:\/+.*:/g,"");
-            routerList.push(urlPath);
-            // console.log("=============")
-            // console.log(item)
-            // console.log(nPath)
-            getFiles(nPath)  
-        }
-    })   
-}
-
-const list = []
-const routerList = [];
-
-routerList.push("")
-getFiles(publicHtmlPath);
+const ejs = require("ejs");
+const {publicViewsPath} = require('../config');
+const routerList = require("../middleware/getfiles")
 
 console.log("===========")
 console.log(routerList)
 
+let list =[];
+
+const pushItem = (base, href, text)=>{
+    list.push({
+        base : base,
+        href : href,
+        text : text
+    });
+}
+
 routerList.forEach(baseurl =>{
-    const filepath = path.join(publicHtmlPath, baseurl);
+    const filepath = path.join(publicViewsPath, baseurl);
     const files = fs.readdirSync(filepath);
     const htmlFiles = files.filter(file => path.extname(file).toLowerCase() ==='.html') 
+    const mdFiles = files.filter(file => path.extname(file).toLowerCase() ==='.md')
 
-
+    // html 
     htmlFiles.forEach(filename=>{
-        const basename = path.basename(filename, '.html');
-
-        let pathName = encodeURI(`${baseurl}/${basename}`); // ( baseurl === "") ? `${baseurl}/${basename}`  :  `/${baseurl}/${basename}`;
+        // const basename = path.basename(filename, '.html');
+        let pathName = encodeURI(`${baseurl}/${filename}`); 
         // console.log(pathName)
-       
         router.get(`${pathName}`, (req, res,next)=>{
             res.render(`${filepath}/${filename}`)
         })
-        list.push(pathName);
-    })
+        pushItem(baseurl, pathName, filename );
+    });
 
+    // markdown
+    mdFiles.forEach(filename=>{
+       // const basename = path.basename(filename, '.md');
+        let pathName = encodeURI(`${baseurl}/${filename}`); // ( baseurl === "") ? `${baseurl}/${basename}`  :  `/${baseurl}/${basename}`;
+        // console.log(pathName)
+        const file = fs.readFileSync(`${filepath}/${filename}`).toString()
+        const html = md.render(file);
 
-    
+        const layoutFormat = fs.readFileSync(`${publicViewsPath}/markrender.ejs`, "utf8");
+
+        const contentHtml = ejs.render(layoutFormat, {
+            title: filename,
+            contents: html,
+        });
+
+        router.get(`${pathName}`, (req, res,next)=>{
+            res.writeHead(200,{'Content-Type' : 'text/html'})
+            res.write(contentHtml);
+            res.end();
+        })
+
+        pushItem(baseurl, pathName, filename);
+    });
 })
+
+
+
+
 
 
 // console.log(files)
@@ -71,7 +81,7 @@ routerList.forEach(baseurl =>{
 // })
 
 router.get("/", (req, res,next)=>{
-    res.render(`${publicHtmlPath}/index.ejs`,
+    res.render(`${publicViewsPath}/index.ejs`,
         {
             test : "hello",
             list : list
@@ -80,7 +90,7 @@ router.get("/", (req, res,next)=>{
 })
 
 router.get("/api/routes",(req,res,next)=>{
-    res.json({base : routerList, item : list});
+    res.json({base : routerList, items : list});
 })
 
 

@@ -1,8 +1,8 @@
 
 const path = require('path')
 const publicPath = path.join(path.resolve(''),"public");
-const publicHtmlPath = path.join(path.resolve(''),"public/html");
+const publicViewsPath = path.join(path.resolve(''),"public/views");
 module.exports ={
     publicPath,
-    publicHtmlPath
+    publicViewsPath
 }

@@ -1,0 +1,34 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/default.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/11.0.1/markdown-it.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js"></script>
+</head>
+<body>
+    <div id="content"></div>
+
+
+    <script>
+    var md = window.markdownit();
+    md.set({
+      highlight: function (str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return '<pre class="hljs"><code>' +
+                   hljs.highlight(lang, str, true).value +
+                   '</code></pre>';
+          } catch (__) {}
+        }
+
+        return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+      }
+    });
+
+    var result = md.render('# markdown-it rulezz! \n\n```html <pre><code class="js">function test();</code></pre>```');
+    document.getElementById('content').innerHTML = result;
+    </script>
+
+    
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .side-bar{
+            display: flex;
+            
+        }
+        .side-bar-item{
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <%=test%>
+    <div class="side-bar">
+
+    </div>
+<!--     
+    <div class="tree-container">
+        <ul class="tree">
+            <% list.forEach(function(item){ %>
+                <li><%=item.base%></li>
+                <li><a href=<%= item.href %>><%=item.text%></a></li>
+            <% }) %>
+        </ul>
+    </div> -->
+
+    <div class ="nav-wrap">
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        (function(){
+            getRoutes(setData)
+            hljs.initHighlightingOnLoad();
+            function getRoutes(callback){
+                $.ajax({
+                    url : '/api/routes',
+                    method : 'GET'
+                }).done(data=>{
+                    callback(data);
+                }).fail(error=>{
+                    console.error(error)
+                })
+            };
+
+            function setData(data){
+                var baseList = [];
+                var itemList = data.items;
+            
+            
+                data.base.forEach(e =>{
+                    console.log(e);
+                    baseList.push(e);
+                    $('.side-bar').append(`<div class ="side-bar-item">${e}</div>`)
+                });
+
+                // data.items.forEach(e => {
+                //     // let i = {
+                //     //     href : e,
+                //     //     text : decodeURI(e)
+                //     // }
+                //    itemList.push(e)
+                // });
+                var temp = '';
+
+                let navhtml = "<nav>";
+
+                let ul;
+                let first = 0;
+                itemList.forEach(e =>{
+
+                    if(temp === '' && first === 0){
+                        navhtml += `<h3>/</h3><ul class ="nav-item">`;
+                            first = 1;
+                    }
+                    if(temp != e.base){
+
+                        // if( temp !== ''){
+                            navhtml += `</ul>`;
+                        // }
+
+                        temp = e.base;
+                        console.log("다름")
+                        console.log(e.base)
+                        navhtml += `<h3>${e.base}</h3><ul class ="nav-item">`;
+                    }
+                    navhtml += `<li><a href="${e.href}">${e.text}</a></li>`
+                })
+                navhtml += "</nav>"
+                console.log(navhtml)
+
+                document.querySelector('.nav-wrap').innerHTML = navhtml;
+               
+            };
+
+            // function createTag(tag){
+            //     return `<${tag}></${tag}>`;
+            // }
+            // function appendTag
+            
+            $('.side-bar-item').on('click', function(){
+
+            });
+
+        })();
+
+    </script>
+</body>
+</html>
